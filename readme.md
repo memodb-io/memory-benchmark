@@ -9,21 +9,56 @@
 </div>
 
 
-
 ## Get Started
 
+### 1. Install
+
+```bash
+# from source
+git clone https://github.com/memodb-io/memory-benchmark.git
+cd memory-benchmark
+pip install -e .
+
+# install from pypi
+pip install memory-benchmark
+```
+
+### 2. Setup
+
+```python
+from memory_benchmark import CONFIG
+
+CONFIG.llm_api_key = "YOUR OPENAI KEY"
+```
+
+### 3. Run the default benchmark.
+
+```python
+import asyncio
+from memory_benchmark import run_memory_benchmark
+
+asyncio.run(run_memory_benchmark())
+```
+
+### Expected Results
+
+```python
 TODO
+```
+
+
 
 
 
 ## Support Datasets
 
-- [ ] [LOCOMO](https://snap-research.github.io/locomo/)
+- [ ] [LOCOMO](https://snap-research.github.io/locomo/) (default)
 
 
 
 ## Support Methods
 
+- [ ] Long-context LLM  (default)
 - [ ] [Memobase](https://github.com/memodb-io/memobase)
 - [ ] [AgenticMemory](https://github.com/WujiangXu/AgenticMemory/tree/main)
 - [ ] [Mem0](https://github.com/mem0ai/mem0)

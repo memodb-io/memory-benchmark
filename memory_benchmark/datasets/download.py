@@ -3,7 +3,7 @@ import requests
 from rich.progress import track
 from hashlib import sha256
 from ..env import HOME_PATH, console
-from .base import RemoteFile
+from .types import RemoteFile
 
 REMOTE_URLS = {
     "locomo": [
