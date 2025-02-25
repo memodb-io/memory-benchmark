@@ -26,7 +26,7 @@ setuptools.setup(
     url=vars2readme["__url__"],
     version=vars2readme["__version__"],
     author=vars2readme["__author__"],
-    description="A unified benchmark framework for long-term memory",
+    description="Run benchmark results for long-term memory backends",
     long_description=long_description,
     long_description_content_type="text/markdown",
     packages=find_packages(exclude=["tests"]),

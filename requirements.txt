@@ -1,3 +1,6 @@
+rich
 openai
+pydantic
+requests
 memobase
 transformers
