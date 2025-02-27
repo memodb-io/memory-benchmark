@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class Message(BaseModel):
@@ -6,11 +6,24 @@ class Message(BaseModel):
     content: str
     alias: str | None = None
     id: str | None = None
+    date_string: str | None = None
+
+    kwargs: dict | None = None
 
 
 class Conversation(BaseModel):
     messages: list[Message]
     id: str | None = None
+    date_string: str | None = None
+
+    kwargs: dict | None = None
+
+
+class QA(BaseModel):
+    questions: list[Message]
+    answer: str
+
+    kwargs: dict | None = None
 
 
 class RemoteFile(BaseModel):

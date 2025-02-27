@@ -9,6 +9,7 @@ class Config:
     llm_api_key: str | None = None
     llm_model: str = "gpt-4o-mini"
 
+    use_dataset_ratio: float = 1.0
     use_dataset: str = "locomo"
     use_method: str = "memobase"
 

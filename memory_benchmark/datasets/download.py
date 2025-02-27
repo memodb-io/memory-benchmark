@@ -5,7 +5,7 @@ from hashlib import sha256
 from ..env import HOME_PATH, console
 from .types import RemoteFile
 
-REMOTE_URLS = {
+FILES = {
     "locomo": [
         RemoteFile(
             url="https://github.com/snap-research/locomo/raw/refs/heads/main/data/locomo10.json",
@@ -16,6 +16,14 @@ REMOTE_URLS = {
 }
 
 
+def local_files(dataset: str):
+    assert dataset in FILES, f"Dataset {dataset} not found in {list(FILES.keys())}"
+    files = {}
+    for df in FILES[dataset]:
+        files[df.name] = os.path.join(HOME_PATH, "datasets", dataset, df.name)
+    return files
+
+
 def exist_or_download(dataset: str):
     if check_local_dataset_exist(dataset):
         console.log(f"Dataset {dataset} already exists")
@@ -24,9 +32,7 @@ def exist_or_download(dataset: str):
 
 
 def check_local_dataset_exist(dataset: str) -> bool:
-    assert (
-        dataset in REMOTE_URLS
-    ), f"Dataset {dataset} not found in {list(REMOTE_URLS.keys())}"
+    assert dataset in FILES, f"Dataset {dataset} not found in {list(FILES.keys())}"
 
     dataset_path = os.path.join(HOME_PATH, "datasets")
     if not os.path.exists(dataset_path):
@@ -36,7 +42,7 @@ def check_local_dataset_exist(dataset: str) -> bool:
     if not os.path.exists(local_path):
         return False
 
-    for df in REMOTE_URLS[dataset]:
+    for df in FILES[dataset]:
         local_file = os.path.join(local_path, df.name)
         if not os.path.exists(local_file):
             return False
@@ -48,9 +54,7 @@ def check_local_dataset_exist(dataset: str) -> bool:
 
 
 def download_from_github(dataset: str):
-    assert (
-        dataset in REMOTE_URLS
-    ), f"Dataset {dataset} not found in {list(REMOTE_URLS.keys())}"
+    assert dataset in FILES, f"Dataset {dataset} not found in {list(FILES.keys())}"
 
     dataset_path = os.path.join(HOME_PATH, "datasets")
     if not os.path.exists(dataset_path):
@@ -63,8 +67,8 @@ def download_from_github(dataset: str):
     # download the file
     console.log(f"Downloading {dataset} from GitHub")
     for df in track(
-        REMOTE_URLS[dataset],
-        description=f"Downloading {len(REMOTE_URLS[dataset])} files...",
+        FILES[dataset],
+        description=f"Downloading {len(FILES[dataset])} files...",
     ):
         local_file = os.path.join(local_path, df.name)
         response = requests.get(df.url)
