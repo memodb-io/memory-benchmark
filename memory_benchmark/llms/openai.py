@@ -16,7 +16,13 @@ def get_openai_async_client_instance() -> AsyncOpenAI:
 
 
 async def openai_complete(
-    model, prompt, system_prompt=None, history_messages=[], **kwargs
+    model,
+    prompt,
+    system_prompt=None,
+    history_messages=[],
+    json_response=False,
+    temperature=0.1,
+    **kwargs,
 ) -> LLMResult:
     openai_async_client = get_openai_async_client_instance()
     messages = []
@@ -25,8 +31,10 @@ async def openai_complete(
     messages.extend(history_messages)
     messages.append({"role": "user", "content": prompt})
 
+    if json_response:
+        kwargs["response_format"] = {"type": "json_object"}
     response = await openai_async_client.chat.completions.create(
-        model=model, messages=messages, timeout=120, **kwargs
+        model=model, messages=messages, timeout=120, temperature=temperature, **kwargs
     )
     return LLMResult(
         content=response.choices[0].message.content,

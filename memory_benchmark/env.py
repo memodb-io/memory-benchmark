@@ -7,13 +7,12 @@ from rich.console import Console
 class Config:
     llm_base_url: str | None = None
     llm_api_key: str | None = None
-    llm_model: str = "gpt-4o-mini"
+    llm_judge_model: str = "gpt-4o"
+    llm_model: str = "gpt-4o"
 
-    use_dataset_ratio: float = 1.0
     use_dataset: str = "locomo"
-    use_method: str = "memobase"
-
-    extra_kwargs: dict = field(default_factory=dict)
+    dataset_kwargs: dict = field(default_factory=dict)
+    async_llm_judge_size: int = 8
 
 
 CONFIG = Config()

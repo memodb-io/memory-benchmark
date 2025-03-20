@@ -23,6 +23,8 @@ class QA(BaseModel):
     questions: list[Message]
     answer: str
 
+    final_prompt: str
+
     kwargs: dict | None = None
 
 
